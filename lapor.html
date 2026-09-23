@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laporkan Barang Ditemukan - PNC Lost & Found</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- PURE CSS SIDEBAR TOGGLE CONTROLLER (NO JAVASCRIPT) -->
+    <input type="checkbox" id="sidebar-toggle" class="sidebar-toggle-input">
+
+    <!-- Mobile Backdrop Overlay (Tap to close sidebar) -->
+    <label for="sidebar-toggle" class="sidebar-backdrop" aria-label="Tutup Menu"></label>
+
+    <div class="app-layout">
+        <!-- Sidebar Kiri (Toggleable via Pure CSS) -->
+        <aside class="sidebar">
+            <div class="sidebar-brand">
+                <div class="brand-logo-container">
+                    <img src="Logo-PNC-3.png" alt="Logo PNC" class="sidebar-logo">
+                    <div class="brand-text">
+                        <span class="brand-title">PNC Lost &amp; Found</span>
+                        <span class="brand-tag">PORTAL KAMPUS</span>
+                    </div>
+                </div>
+                <!-- Close Button on Mobile -->
+                <label for="sidebar-toggle" class="sidebar-close-btn" aria-label="Tutup Menu">&times;</label>
+            </div>
+
+            <nav class="sidebar-nav">
+                <span class="nav-category">MENU UTAMA</span>
+                <a href="index.html" class="nav-link">
+                    <svg class="nav-icon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                        <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                    </svg>
+                    <span class="nav-text">Beranda</span>
+                </a>
+                <a href="lapor.html" class="nav-link active">
+                    <svg class="nav-icon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                        <polyline points="14 2 14 8 20 8"></polyline>
+                        <line x1="12" y1="18" x2="12" y2="12"></line>
+                        <line x1="9" y1="15" x2="15" y2="15"></line>
+                    </svg>
+                    <span class="nav-text">Laporkan Barang</span>
+                </a>
+                <a href="dashboard.html" class="nav-link">
+                    <svg class="nav-icon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="3" y="3" width="7" height="9"></rect>
+                        <rect x="14" y="3" width="7" height="5"></rect>
+                        <rect x="14" y="12" width="7" height="9"></rect>
+                        <rect x="3" y="16" width="7" height="5"></rect>
+                    </svg>
+                    <span class="nav-text">Riwayat Laporan</span>
+                </a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <a href="login.html" class="nav-link logout-btn" onclick="localStorage.clear();">
+                    <svg class="nav-icon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                        <polyline points="16 17 21 12 16 7"></polyline>
+                        <line x1="21" y1="12" x2="9" y2="12"></line>
+                    </svg>
+                    <span class="nav-text">Keluar (Logout)</span>
+                </a>
+            </div>
+        </aside>
+
+        <!-- Area Konten Utama -->
+        <div class="main-wrapper">
+            <header class="topbar">
+                <div class="topbar-left">
+                    <!-- Hamburger Toggle Button (CSS Checkbox Hack) -->
+                    <label for="sidebar-toggle" class="sidebar-toggle-btn" aria-label="Toggle Sidebar Menu">
+                        <span class="hamburger-bar"></span>
+                        <span class="hamburger-bar"></span>
+                        <span class="hamburger-bar"></span>
+                    </label>
+                    <div class="topbar-title">
+                        <h1>Formulir Pelaporan Barang Ditemukan</h1>
+                        <p>Pusat Informasi &amp; Layanan Pengembalian Barang Kampus</p>
+                    </div>
+                </div>
+
+                <!-- User Profile Session Badge -->
+                <div class="user-profile-badge" id="user-profile-badge" title="Status Sesi Pengguna Aktif">
+                    <span class="user-role-pill" id="current-user-role">Memuat...</span>
+                    <span class="user-display-name" id="current-user-name">Pengguna</span>
+                </div>
+            </header>
+
+            <main>
+                <section>
+                    <h2>Formulir Pelaporan Barang Ditemukan</h2>
+                    <p>Menemukan barang milik orang lain? Isi formulir di bawah ini dan segera serahkan barang ke Pos Satpam Pusat.</p>
+
+                    <div class="sop-instruction-box" style="margin-bottom: 1.5rem;">
+                        <strong>SOP Pelaporan Barang Kampus:</strong> Laporan barang temuan akan otomatis terdaftar dengan status resmi <span class="status-badge status-diamankan" style="padding: 0.2rem 0.6rem; font-size: 0.75rem;">Diamankan / Belum Diambil</span> setelah barang fisik diserahkan ke Pos Satpam.
+                    </div>
+
+                    <form action="dashboard.html" method="POST" enctype="multipart/form-data">
+
+                        <!-- Penggabungan Blok Informasi & Detail Kejadian -->
+                        <fieldset>
+                            <legend>Informasi &amp; Detail Barang yang Ditemukan</legend>
+
+                            <label for="nama_barang">Nama / Jenis Barang Ditemukan:</label><br>
+                            <input type="text" id="nama_barang" name="nama_barang" placeholder="Contoh: Dompet Kulit Cokelat, Flashdisk 32GB" required maxlength="60"><br><br>
+
+                            <label for="kategori_select">Kategori Barang:</label><br>
+                            <select id="kategori_select" name="kategori_select" required>
+                                <option value="">-- Pilih Kategori --</option>
+                                <option value="elektronik">Elektronik &amp; Gadget</option>
+                                <option value="dokumen">Dokumen &amp; Kartu Identitas (KTM/SIM/ATM)</option>
+                                <option value="pribadi">Pakaian &amp; Aksesoris</option>
+                                <option value="perhiasan">Perhiasan &amp; Uang</option>
+                                <option value="lainnya">Lain-lain</option>
+                            </select><br><br>
+
+                            <label for="deskripsi">Deskripsi &amp; Ciri-Ciri Khusus Barang:</label><br>
+                            <textarea id="deskripsi" name="deskripsi" rows="5" cols="45" placeholder="Sebutkan warna, merek, gantuan kunci, atau ciri khusus lainnya..." required></textarea><br><br>
+
+                            <label for="tgl_ditemukan">Tanggal Ditemukan:</label><br>
+                            <input type="date" id="tgl_ditemukan" name="tgl_ditemukan" required><br><br>
+
+                            <label for="waktu_ditemukan">Waktu Ditemukan:</label><br>
+                            <input type="time" id="waktu_ditemukan" name="waktu_ditemukan"><br><br>
+
+                            <label for="lokasi">Lokasi Spesifik Penemuan:</label><br>
+                            <input type="text" id="lokasi" name="lokasi" placeholder="Misal: Meja Kantin Utama / Lab Komputer 3" required><br><br>
+
+                            <label for="foto_barang">Unggah Foto Barang yang Ditemukan:</label><br>
+                            <input type="file" id="foto_barang" name="foto_barang" accept="image/*" multiple><br>
+                            <small>*Sangat dianjurkan melampirkan foto. Sistem <strong>AI Auto-Description</strong> akan mengekstrak ciri visual secara otomatis untuk mempermudah pencarian.</small>
+                        </fieldset>
+
+                        <br>
+
+                        <!-- Blok Informasi Penemu -->
+                        <fieldset>
+                            <legend>Informasi Kontak Penemu</legend>
+
+                            <label for="nama_penemu">Nama Lengkap Penemu:</label><br>
+                            <input type="text" id="nama_penemu" name="nama_penemu" placeholder="Masukkan nama Anda" required><br><br>
+
+                            <label for="nim_penemu">NIM / NIDN Penemu:</label><br>
+                            <input type="text" id="nim_penemu" name="nim_penemu" placeholder="Contoh: 2026019928" pattern="[0-9]+" title="Hanya masukkan angka" required><br><br>
+
+                            <label for="email_penemu">Email Kampus / Aktif:</label><br>
+                            <input type="email" id="email_penemu" name="email_penemu" placeholder="nama@mahasiswa.ac.id" required><br><br>
+
+                            <label for="hp_penemu">No. WhatsApp / Telepon:</label><br>
+                            <input type="tel" id="hp_penemu" name="hp_penemu" placeholder="081234567890" pattern="[0-9]{10,13}" title="Nomor telepon 10-13 digit" required><br><br>
+
+                            <input type="checkbox" id="setuju" name="setuju" required>
+                            <label for="setuju">Saya bersedia menyerahkan barang ini ke Pos Satpam Pusat untuk diverifikasi pemiliknya.</label>
+                        </fieldset>
+
+                        <br>
+
+                        <button type="submit">Kirim Laporan Penemuan</button>
+                        <button type="reset">Bersihkan Form</button>
+
+                    </form>
+                </section>
+            </main>
+
+            <footer>
+                <p>&copy; 2026 PNC Lost &amp; Found Campus. Dibuat untuk Tugas Proyek Pemrograman Web.</p>
+            </footer>
+        </div>
+    </div>
+
+    <!-- Script RBAC Session Initializer -->
+    <script>
+        function initUserSession() {
+            const role = localStorage.getItem('pnc_user_role') || 'role-mahasiswa';
+            const username = localStorage.getItem('pnc_username') || 'Tamu';
+            const roleLabel = localStorage.getItem('pnc_role_label') || (role === 'role-admin' ? 'Admin' : (role === 'role-satpam' ? 'Satpam' : 'Mahasiswa'));
+
+            document.body.className = role;
+
+            const roleEl = document.getElementById('current-user-role');
+            const nameEl = document.getElementById('current-user-name');
+            if (roleEl) roleEl.textContent = roleLabel;
+            if (nameEl) nameEl.textContent = username;
+        }
+
+        document.addEventListener('DOMContentLoaded', initUserSession);
+    </script>
+</body>
+</html>
