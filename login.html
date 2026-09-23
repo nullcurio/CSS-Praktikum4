@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - PNC Lost & Found Campus</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="login-wrapper">
+        <header class="login-header">
+            <img src="Logo-PNC-3.png" alt="Logo PNC" class="login-logo">
+            <h1>PNC Lost &amp; Found Portal Campus</h1>
+            <p>Silakan login terlebih dahulu untuk mengakses sistem</p>
+        </header>
+
+        <main>
+            <section>
+                <h2>Login Pengguna Sistem</h2>
+                <div id="login-error" class="login-error-alert" role="alert"></div>
+                
+                <form id="login-form" onsubmit="handleLogin(event)">
+                    <fieldset>
+                        <legend>Masuk ke Akun Anda</legend>
+
+                        <label for="username">Username / NIM / NIDN:</label><br>
+                        <input type="text" id="username" name="username" placeholder="Masukkan NIM atau Username" required autofocus><br><br>
+
+                        <label for="password">Kata Sandi:</label><br>
+                        <input type="password" id="password" name="password" placeholder="Masukkan Kata Sandi" required><br><br>
+
+                        <input type="checkbox" id="remember" name="remember" checked>
+                        <label for="remember">Ingat Saya di Perangkat Ini</label><br><br>
+
+                        <button type="submit" id="btn-login" style="width: 100%;">Masuk ke Sistem</button>
+                    </fieldset>
+                </form>
+
+                <!-- Box Bantuan Akun Demo untuk Pengujian -->
+                <div class="login-demo-box">
+                    <h4>💡 Akun Demo untuk Pengujian (Klik untuk Isi Otomatis):</h4>
+                    <p style="font-size: 0.8rem; color: var(--text-muted); margin: 0 0 0.75rem 0;">Pilih salah satu peran di bawah untuk menguji hak akses RBAC:</p>
+                    <div class="demo-account-list">
+                        <button type="button" class="demo-account-btn" onclick="quickFill('admin')" title="Klik untuk isi form dengan akun Admin">
+                            <span><strong>Admin:</strong> <code>admin</code> / <code>admin123</code></span>
+                            <span class="badge" style="background: #EFF6FF; color: #1D4ED8;">Akses Penuh</span>
+                        </button>
+                        <button type="button" class="demo-account-btn" onclick="quickFill('satpam')" title="Klik untuk isi form dengan akun Satpam">
+                            <span><strong>Satpam:</strong> <code>satpam</code> / <code>satpam123</code></span>
+                            <span class="badge" style="background: #FEF3C7; color: #92400E;">Verifikasi SOP</span>
+                        </button>
+                        <button type="button" class="demo-account-btn" onclick="quickFill('mhs')" title="Klik untuk isi form dengan akun Mahasiswa">
+                            <span><strong>Mahasiswa:</strong> <code>mhs</code> / <code>mhs123</code></span>
+                            <span class="badge" style="background: #ECFDF5; color: #065F46;">Hanya Lihat/Lapor</span>
+                        </button>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <p>&copy; 2026 PNC Lost &amp; Found Campus. Dibuat untuk Tugas Proyek Pemrograman Web.</p>
+        </footer>
+    </div>
+
+    <!-- Script Autentikasi Mock & RBAC Storage -->
+    <script>
+        const ACCOUNTS = {
+            'admin': { pass: 'admin123', role: 'admin', label: 'Admin', name: 'Administrator' },
+            'satpam': { pass: 'satpam123', role: 'satpam', label: 'Satpam', name: 'Petugas Satpam' },
+            'mhs': { pass: 'mhs123', role: 'mahasiswa', label: 'Mahasiswa', name: 'Mahasiswa PNC' }
+        };
+
+        function quickFill(user) {
+            if (ACCOUNTS[user]) {
+                document.getElementById('username').value = user;
+                document.getElementById('password').value = ACCOUNTS[user].pass;
+                const err = document.getElementById('login-error');
+                if (err) err.style.display = 'none';
+            }
+        }
+
+        function handleLogin(e) {
+            e.preventDefault();
+            const u = document.getElementById('username').value.trim();
+            const p = document.getElementById('password').value;
+            const errBox = document.getElementById('login-error');
+
+            if (ACCOUNTS[u] && ACCOUNTS[u].pass === p) {
+                const acc = ACCOUNTS[u];
+                localStorage.setItem('pnc_user_role', 'role-' + acc.role);
+                localStorage.setItem('pnc_username', u);
+                localStorage.setItem('pnc_role_label', acc.label);
+                localStorage.setItem('pnc_display_name', acc.name);
+                // Redirect langsung ke dashboard sesuai kebutuhan BRD
+                window.location.href = 'dashboard.html';
+            } else {
+                errBox.textContent = 'Username atau kata sandi tidak valid. Silakan gunakan salah satu akun demo di bawah.';
+                errBox.style.display = 'block';
+            }
+        }
+    </script>
+</body>
+</html>

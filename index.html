@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beranda - PNC Lost & Found Campus</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="role-admin">
+
+    <!-- PURE CSS SIDEBAR TOGGLE CONTROLLER (NO JAVASCRIPT) -->
+    <input type="checkbox" id="sidebar-toggle" class="sidebar-toggle-input">
+
+    <!-- Mobile Backdrop Overlay (Tap to close sidebar) -->
+    <label for="sidebar-toggle" class="sidebar-backdrop" aria-label="Tutup Menu"></label>
+
+    <div class="app-layout">
+        <!-- Sidebar Kiri (Toggleable via Pure CSS) -->
+        <aside class="sidebar">
+            <div class="sidebar-brand">
+                <div class="brand-logo-container">
+                    <img src="Logo-PNC-3.png" alt="Logo PNC" class="sidebar-logo">
+                    <div class="brand-text">
+                        <span class="brand-title">PNC Lost &amp; Found</span>
+                        <span class="brand-tag">PORTAL KAMPUS</span>
+                    </div>
+                </div>
+                <!-- Close Button on Mobile -->
+                <label for="sidebar-toggle" class="sidebar-close-btn" aria-label="Tutup Menu">&times;</label>
+            </div>
+
+            <nav class="sidebar-nav">
+                <span class="nav-category">MENU UTAMA</span>
+                <a href="index.html" class="nav-link active">
+                    <svg class="nav-icon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                        <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                    </svg>
+                    <span class="nav-text">Beranda</span>
+                </a>
+                <a href="lapor.html" class="nav-link">
+                    <svg class="nav-icon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                        <polyline points="14 2 14 8 20 8"></polyline>
+                        <line x1="12" y1="18" x2="12" y2="12"></line>
+                        <line x1="9" y1="15" x2="15" y2="15"></line>
+                    </svg>
+                    <span class="nav-text">Laporkan Barang</span>
+                </a>
+                <a href="dashboard.html" class="nav-link">
+                    <svg class="nav-icon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="3" y="3" width="7" height="9"></rect>
+                        <rect x="14" y="3" width="7" height="5"></rect>
+                        <rect x="14" y="12" width="7" height="9"></rect>
+                        <rect x="3" y="16" width="7" height="5"></rect>
+                    </svg>
+                    <span class="nav-text">Riwayat Laporan</span>
+                </a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <a href="login.html" class="nav-link logout-btn" onclick="localStorage.clear();">
+                    <svg class="nav-icon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                        <polyline points="16 17 21 12 16 7"></polyline>
+                        <line x1="21" y1="12" x2="9" y2="12"></line>
+                    </svg>
+                    <span class="nav-text">Keluar (Logout)</span>
+                </a>
+            </div>
+        </aside>
+
+        <!-- Area Konten Utama -->
+        <div class="main-wrapper">
+            <header class="topbar">
+                <div class="topbar-left">
+                    <!-- Hamburger Toggle Button (CSS Checkbox Hack) -->
+                    <label for="sidebar-toggle" class="sidebar-toggle-btn" aria-label="Toggle Sidebar Menu">
+                        <span class="hamburger-bar"></span>
+                        <span class="hamburger-bar"></span>
+                        <span class="hamburger-bar"></span>
+                    </label>
+                    <div class="topbar-title">
+                        <h1>PNC Lost &amp; Found Portal Campus</h1>
+                        <p>Pusat Informasi &amp; Pelaporan Barang Hilang atau Ditemukan di Lingkungan Kampus</p>
+                    </div>
+                </div>
+
+                <!-- User Profile Session Badge (No Role Switcher) -->
+                <div class="user-profile-badge" id="user-profile-badge" title="Status Sesi Pengguna Aktif">
+                    <span class="user-role-pill" id="current-user-role">Memuat...</span>
+                    <span class="user-display-name" id="current-user-name">Pengguna</span>
+                </div>
+            </header>
+
+            <main>
+                <!-- 1. Section Hero/Pengantar -->
+                <section class="hero-section">
+                    <h2>Selamat Datang di PNC Portal Lost &amp; Found</h2>
+                    <p>Kehilangan barang di area kampus? Atau menemukan barang milik orang lain? Laporkan segera melalui platform ini untuk mempercepat proses pengembalian!</p>
+                </section>
+
+                <!-- 2. Section Ringkasan Statistik (Moved from dashboard.html) -->
+                <section class="stats-section">
+                    <h2>Statistik Laporan Sistem</h2>
+                    <p>Ringkasan real-time status penanganan barang hilang dan temuan di lingkungan kampus PNC.</p>
+
+                    <table border="1" cellpadding="8" cellspacing="0" class="stats-table">
+                        <thead>
+                            <tr>
+                                <th>Total Laporan Masuk</th>
+                                <th>Diamankan / Belum Diambil</th>
+                                <th>Sudah Dikembalikan / Diambil</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr align="center">
+                                <td>124</td>
+                                <td>38</td>
+                                <td>86</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </section>
+
+                <!-- 3. Section Katalog Kategori Barang Ditemukan (Primary Filter Mechanism) -->
+                <section class="found-categories-card" id="catalog-section">
+                    <div class="section-header-flex">
+                        <div>
+                            <h3>Katalog Kategori Barang Ditemukan</h3>
+                            <p>Klik kartu kategori di bawah ini untuk memfilter langsung 10 daftar barang temuan di bawah:</p>
+                        </div>
+                        <button type="button" class="view-all-link" id="btn-catalog-all" onclick="filterByCatalog('all', null)" style="border: none; cursor: pointer;">
+                            <span>Lihat Semua Temuan (Reset)</span>
+                            <span>&rarr;</span>
+                        </button>
+                    </div>
+
+                    <div class="category-grid">
+                        <!-- 1. Elektronik & Gadget -->
+                        <div class="category-card" role="button" tabindex="0" data-catalog-cat="elektronik" onclick="filterByCatalog('elektronik', this)" title="Klik untuk memfilter barang Elektronik & Gadget">
+                            <div class="category-icon-wrapper icon-elektronik">
+                                <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                                    <line x1="8" y1="21" x2="16" y2="21"></line>
+                                    <line x1="12" y1="17" x2="12" y2="21"></line>
+                                </svg>
+                            </div>
+                            <div class="category-info">
+                                <h4>Elektronik &amp; Gadget</h4>
+                                <span>2 Barang (Laptop, Flashdisk)</span>
+                            </div>
+                            <span class="category-badge-arrow">&rarr;</span>
+                        </div>
+
+                        <!-- 2. Dokumen & Kartu Identitas -->
+                        <div class="category-card" role="button" tabindex="0" data-catalog-cat="dokumen" onclick="filterByCatalog('dokumen', this)" title="Klik untuk memfilter Dokumen & Kartu Identitas">
+                            <div class="category-icon-wrapper icon-dokumen">
+                                <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                                    <line x1="2" y1="10" x2="22" y2="10"></line>
+                                    <line x1="6" y1="15" x2="10" y2="15"></line>
+                                </svg>
+                            </div>
+                            <div class="category-info">
+                                <h4>Dokumen &amp; Identitas</h4>
+                                <span>1 Berkas (KTM Mahasiswa)</span>
+                            </div>
+                            <span class="category-badge-arrow">&rarr;</span>
+                        </div>
+
+                        <!-- 3. Tas & Aksesoris -->
+                        <div class="category-card" role="button" tabindex="0" data-catalog-cat="pribadi" onclick="filterByCatalog('pribadi', this)" title="Klik untuk memfilter Tas, Pakaian & Aksesoris">
+                            <div class="category-icon-wrapper icon-aksesoris">
+                                <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+                                    <line x1="3" y1="6" x2="21" y2="6"></line>
+                                    <path d="M16 10a4 4 0 0 1-8 0"></path>
+                                </svg>
+                            </div>
+                            <div class="category-info">
+                                <h4>Tas &amp; Aksesoris</h4>
+                                <span>5 Barang (Dompet, Jaket, dll)</span>
+                            </div>
+                            <span class="category-badge-arrow">&rarr;</span>
+                        </div>
+
+                        <!-- 4. Kunci & Kendaraan -->
+                        <div class="category-card" role="button" tabindex="0" data-catalog-cat="kunci" onclick="filterByCatalog('kunci', this)" title="Klik untuk memfilter Kunci & Kendaraan">
+                            <div class="category-icon-wrapper icon-kunci">
+                                <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <circle cx="7.5" cy="15.5" r="4.5"></circle>
+                                    <path d="M21 2l-9.6 9.6"></path>
+                                    <path d="M15.5 7.5l2.5 2.5"></path>
+                                    <path d="M18.5 4.5l2.5 2.5"></path>
+                                </svg>
+                            </div>
+                            <div class="category-info">
+                                <h4>Kunci &amp; Kendaraan</h4>
+                                <span>2 Barang (Kunci Motor, Helm)</span>
+                            </div>
+                            <span class="category-badge-arrow">&rarr;</span>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 4. Section Pencarian Cepat dengan AI Lens (Redundant category/status pills removed) -->
+                <section class="search-filter-card">
+                    <form action="index.html" method="GET" class="search-form-unified" onsubmit="event.preventDefault(); applyHomeSearch();">
+                        <div class="search-bar-unified">
+                            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--text-muted); margin-right: 0.5rem; flex-shrink: 0;">
+                                <circle cx="11" cy="11" r="8"></circle>
+                                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                            </svg>
+                            <input type="search" id="search-input" name="q" placeholder="Cari nama barang, pelapor, atau lokasi penemuan..." aria-label="Cari barang hilang dan temuan" oninput="applyHomeSearch()">
+                            
+                            <label for="ai-camera-upload" class="ai-lens-btn" title="AI Visual Search: Cari dengan Foto Barang">
+                                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
+                                    <circle cx="12" cy="13" r="4"></circle>
+                                </svg>
+                                <span>AI Lens</span>
+                            </label>
+                            <input type="file" id="ai-camera-upload" accept="image/*" style="display:none;" onchange="alert('Foto barang berhasil diunggah untuk AI Visual Search!');">
+                            
+                            <button type="submit" class="btn-search-unified">
+                                <span>Cari Barang</span>
+                            </button>
+                        </div>
+                    </form>
+                </section>
+
+                <!-- 5. Priority Feed Laporan Barang (BRD Requirement - 10 Realistic Dummy Items) -->
+                <section class="priority-feed-section" id="priority-feed-section">
+                    <div class="priority-feed-header">
+                        <div>
+                            <h2>Priority Feed Laporan Barang</h2>
+                            <p>Daftar penanganan barang kampus terorganisir. Barang berstatus <strong>Diamankan / Belum Diambil</strong> diprioritaskan di baris teratas.</p>
+                        </div>
+                        <span class="priority-feed-badge">🔥 Prioritas Aktif</span>
+                    </div>
+
+                    <!-- Item 1: Dompet Kulit Cokelat (Diamankan) -->
+                    <article class="priority-card" data-category="pribadi" data-status="diamankan">
+                        <div class="priority-card-header">
+                            <div>
+                                <h3>
+                                    <span class="item-type-icon">👛</span> Dompet Kulit Cokelat
+                                </h3>
+                                <p><small>ID Laporan: #LF-1001 | Pelapor: Ahmad Rizky | 16 September 2026</small></p>
+                            </div>
+                            <div style="display: flex; gap: 0.5rem; align-items: center; flex-wrap: wrap;">
+                                <span class="priority-tag">🔥 PRIORITAS KLAIM</span>
+                                <span class="status-badge status-diamankan">Diamankan / Belum Diambil</span>
+                            </div>
+                        </div>
+                        <figure>
+                            <img src="https://images.unsplash.com/photo-1627123424574-724758594e93?w=700&auto=format&fit=crop&q=80" alt="Foto Dompet Kulit Cokelat" onerror="this.src='assets/images/default-item.svg'">
+                            <figcaption>Dompet lipat kulit warna cokelat tua dengan kartu identitas di dalamnya</figcaption>
+                        </figure>
+                        <p><strong>Lokasi Penemuan:</strong> Area Gedung Perpustakaan Lantai 2</p>
+                        <p><strong>Deskripsi &amp; Ciri:</strong> Berisi KTM atas nama Ahmad Rizky, kartu ATM, dan sejumlah uang tunai.</p>
+                        <div class="priority-custody-box">
+                            <span>📍 <strong>Posisi Fisik Barang:</strong> Disimpan &amp; diamankan di <strong>Pos Satpam Gedung Utama</strong>. Bawa kartu identitas untuk verifikasi kepemilikan.</span>
+                        </div>
+                        <div class="priority-card-actions">
+                            <a href="dashboard.html#sop-modal" class="btn-claim-priority btn-verify-satpam rbac-satpam-only">👮 Verifikasi &amp; Klaim di Pos Satpam &raquo;</a>
+                            <a href="dashboard.html">Lihat di Riwayat Laporan</a>
+                        </div>
+                    </article>
+
+                    <!-- Item 2: Kunci Motor Honda Vario (Diamankan) -->
+                    <article class="priority-card" data-category="kunci" data-status="diamankan">
+                        <div class="priority-card-header">
+                            <div>
+                                <h3>
+                                    <span class="item-type-icon">🔑</span> Kunci Motor Honda Vario
+                                </h3>
+                                <p><small>ID Laporan: #LF-1002 | Pelapor: Satpam Gedung B | 15 September 2026</small></p>
+                            </div>
+                            <div style="display: flex; gap: 0.5rem; align-items: center; flex-wrap: wrap;">
+                                <span class="priority-tag">🔥 PRIORITAS KLAIM</span>
+                                <span class="status-badge status-diamankan">Diamankan / Belum Diambil</span>
+                            </div>
+                        </div>
+                        <figure>
+                            <img src="https://images.unsplash.com/photo-1582139329536-e7284fece509?w=700&auto=format&fit=crop&q=80" alt="Foto Kunci Motor Honda" onerror="this.src='assets/images/default-item.svg'">
+                            <figcaption>Kunci kontak motor Honda dengan gantungan akrilik hitam</figcaption>
+                        </figure>
+                        <p><strong>Lokasi Penemuan:</strong> Parkiran Barat Kampus (Dekat Tiang B-3)</p>
+                        <p><strong>Deskripsi &amp; Ciri:</strong> Kunci kontak motor matic Honda hitam dengan gantungan kunci akrilik.</p>
+                        <div class="priority-custody-box">
+                            <span>📍 <strong>Posisi Fisik Barang:</strong> Disimpan &amp; diamankan di <strong>Pos Satpam Parkir Barat</strong>. Wajib menunjukkan STNK asli saat pengambilan.</span>
+                        </div>
+                        <div class="priority-card-actions">
+                            <a href="dashboard.html#sop-modal" class="btn-claim-priority btn-verify-satpam rbac-satpam-only">👮 Verifikasi &amp; Klaim di Pos Satpam &raquo;</a>
+                            <a href="dashboard.html">Lihat di Riwayat Laporan</a>
+                        </div>
+                    </article>
+
+                    <!-- Item 3: Helm KYT TT Course Hitam (Diamankan) -->
+                    <article class="priority-card" data-category="kunci" data-status="diamankan">
+                        <div class="priority-card-header">
+                            <div>
+                                <h3>
+                                    <span class="item-type-icon">🪖</span> Helm KYT TT Course Hitam
+                                </h3>
+                                <p><small>ID Laporan: #LF-1003 | Pelapor: Budi Santoso | 17 September 2026</small></p>
+                            </div>
+                            <div style="display: flex; gap: 0.5rem; align-items: center; flex-wrap: wrap;">
+                                <span class="priority-tag">🔥 PRIORITAS KLAIM</span>
+                                <span class="status-badge status-diamankan">Diamankan / Belum Diambil</span>
+                            </div>
+                        </div>
+                        <figure>
+                            <img src="https://images.unsplash.com/photo-1558981403-c5f9899a28bc?w=700&auto=format&fit=crop&q=80" alt="Foto Helm KYT TT Course" onerror="this.src='assets/images/default-item.svg'">
+                            <figcaption>Helm full-face warna hitam doff ukuran L dengan visor smoke</figcaption>
+                        </figure>
+                        <p><strong>Lokasi Penemuan:</strong> Parkiran Sepeda Motor Kuliah Terpadu</p>
+                        <p><strong>Deskripsi &amp; Ciri:</strong> Helm full-face hitam doff, visor smoke, ada stiker logo fakultas teknik.</p>
+                        <div class="priority-custody-box">
+                            <span>📍 <strong>Posisi Fisik Barang:</strong> Disimpan &amp; diamankan di <strong>Pos Satpam Gedung Utama</strong>. Bawa bukti foto atau STNK untuk klaim.</span>
+                        </div>
+                        <div class="priority-card-actions">
+                            <a href="dashboard.html#sop-modal" class="btn-claim-priority btn-verify-satpam rbac-satpam-only">👮 Verifikasi &amp; Klaim di Pos Satpam &raquo;</a>
+                            <a href="dashboard.html">Lihat di Riwayat Laporan</a>
+                        </div>
+                    </article>
+
+                    <!-- Item 4: KTM Mahasiswa NIM 202601009 (Dikembalikan) -->
+                    <article class="completed-card" data-category="dokumen" data-status="dikembalikan">
+                        <div class="completed-card-header">
+                            <div>
+                                <h3>
+                                    <span class="item-type-icon">🪪</span> KTM Mahasiswa NIM 202601009
+                                </h3>
+                                <p><small>ID Laporan: #LF-1004 | Pelapor: Siti Aminah | 14 September 2026</small></p>
+                            </div>
+                            <span class="status-badge status-dikembalikan">Sudah Dikembalikan / Diambil</span>
+                        </div>
+                        <figure style="max-height: 180px; overflow: hidden; margin-bottom: 0.75rem;">
+                            <img src="https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=600&auto=format&fit=crop&q=80" alt="KTM Mahasiswa" style="width: 100%; height: 160px; object-fit: cover; border-radius: 8px;" onerror="this.src='assets/images/default-item.svg'">
+                        </figure>
+                        <p><strong>Lokasi Awal:</strong> Meja Kantin Utama Kampus</p>
+                        <p><strong>Status Serah Terima:</strong> Telah diverifikasi dan diserahkan kembali kepada pemilik yang sah (Nadia Putri) melalui Digital SOP Satpam pada 15 September 2026.</p>
+                    </article>
+
+                    <!-- Item 5: Laptop ASUS Vivobook 14 Silver (Diamankan) -->
+                    <article class="priority-card" data-category="elektronik" data-status="diamankan">
+                        <div class="priority-card-header">
+                            <div>
+                                <h3>
+                                    <span class="item-type-icon">💻</span> Laptop ASUS Vivobook 14 Silver
+                                </h3>
+                                <p><small>ID Laporan: #LF-1005 | Pelapor: Dosen TI | 18 September 2026</small></p>
+                            </div>
+                            <div style="display: flex; gap: 0.5rem; align-items: center; flex-wrap: wrap;">
+                                <span class="priority-tag">🔥 PRIORITAS KLAIM</span>
+                                <span class="status-badge status-diamankan">Diamankan / Belum Diambil</span>
+                            </div>
+                        </div>
+                        <figure>
+                            <img src="https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=700&auto=format&fit=crop&q=80" alt="Foto Laptop ASUS Vivobook" onerror="this.src='assets/images/default-item.svg'">
+                            <figcaption>Laptop ASUS Vivobook warna silver dalam softcase abu-abu</figcaption>
+                        </figure>
+                        <p><strong>Lokasi Penemuan:</strong> Lab Komputer Jaringan 3 Gedung C</p>
+                        <p><strong>Deskripsi &amp; Ciri:</strong> Dilengkapi charger original, terdapat stiker GitHub di cover belakang.</p>
+                        <div class="priority-custody-box">
+                            <span>📍 <strong>Posisi Fisik Barang:</strong> Disimpan &amp; diamankan di <strong>Pos Satpam Pusat</strong>. Verifikasi kepemilikan via login akun laptop.</span>
+                        </div>
+                        <div class="priority-card-actions">
+                            <a href="dashboard.html#sop-modal" class="btn-claim-priority btn-verify-satpam rbac-satpam-only">👮 Verifikasi &amp; Klaim di Pos Satpam &raquo;</a>
+                            <a href="dashboard.html">Lihat di Riwayat Laporan</a>
+                        </div>
+                    </article>
+
+                    <!-- Item 6: Tumbler Corkcicle Biru Navy (Diamankan) -->
+                    <article class="priority-card" data-category="pribadi" data-status="diamankan">
+                        <div class="priority-card-header">
+                            <div>
+                                <h3>
+                                    <span class="item-type-icon">🥤</span> Tumbler Corkcicle Biru Navy
+                                </h3>
+                                <p><small>ID Laporan: #LF-1006 | Pelapor: Petugas Kebersihan | 19 September 2026</small></p>
+                            </div>
+                            <div style="display: flex; gap: 0.5rem; align-items: center; flex-wrap: wrap;">
+                                <span class="priority-tag">🔥 PRIORITAS KLAIM</span>
+                                <span class="status-badge status-diamankan">Diamankan / Belum Diambil</span>
+                            </div>
+                        </div>
+                        <figure>
+                            <img src="https://images.unsplash.com/photo-1602143407151-7111542de6e8?w=700&auto=format&fit=crop&q=80" alt="Foto Tumbler Corkcicle" onerror="this.src='assets/images/default-item.svg'">
+                            <figcaption>Botol minum insulated warna biru navy ukuran 475ml dengan goresan kecil di dasar</figcaption>
+                        </figure>
+                        <p><strong>Lokasi Penemuan:</strong> Ruang Baca Perpustakaan Kampus</p>
+                        <p><strong>Deskripsi &amp; Ciri:</strong> Tumbler stainless Corkcicle biru gelap, tutup transparan hitam.</p>
+                        <div class="priority-custody-box">
+                            <span>📍 <strong>Posisi Fisik Barang:</strong> Disimpan &amp; diamankan di <strong>Pos Satpam Gedung Utama</strong>. Bawa bukti foto barang untuk klaim.</span>
+                        </div>
+                        <div class="priority-card-actions">
+                            <a href="dashboard.html#sop-modal" class="btn-claim-priority btn-verify-satpam rbac-satpam-only">👮 Verifikasi &amp; Klaim di Pos Satpam &raquo;</a>
+                            <a href="dashboard.html">Lihat di Riwayat Laporan</a>
+                        </div>
+                    </article>
+
+                    <!-- Item 7: Jaket Almamater PNC Ukuran L (Dikembalikan) -->
+                    <article class="completed-card" data-category="pribadi" data-status="dikembalikan">
+                        <div class="completed-card-header">
+                            <div>
+                                <h3>
+                                    <span class="item-type-icon">🧥</span> Jaket Almamater PNC Ukuran L
+                                </h3>
+                                <p><small>ID Laporan: #LF-1007 | Pelapor: Hendra Pratama | 13 September 2026</small></p>
+                            </div>
+                            <span class="status-badge status-dikembalikan">Sudah Dikembalikan / Diambil</span>
+                        </div>
+                        <figure style="max-height: 180px; overflow: hidden; margin-bottom: 0.75rem;">
+                            <img src="https://images.unsplash.com/photo-1551028719-00167b16eac5?w=600&auto=format&fit=crop&q=80" alt="Jaket Almamater" style="width: 100%; height: 160px; object-fit: cover; border-radius: 8px;" onerror="this.src='assets/images/default-item.svg'">
+                        </figure>
+                        <p><strong>Lokasi Awal:</strong> Tribun Olahraga Kampus</p>
+                        <p><strong>Status Serah Terima:</strong> Telah diverifikasi dan diambil oleh pemilik asli di Pos Satpam Barat pada 14 September 2026.</p>
+                    </article>
+
+                    <!-- Item 8: Kacamata Minus Frame Titanium (Diamankan) -->
+                    <article class="priority-card" data-category="pribadi" data-status="diamankan">
+                        <div class="priority-card-header">
+                            <div>
+                                <h3>
+                                    <span class="item-type-icon">👓</span> Kacamata Minus Frame Titanium
+                                </h3>
+                                <p><small>ID Laporan: #LF-1008 | Pelapor: Nur Aini | 20 September 2026</small></p>
+                            </div>
+                            <div style="display: flex; gap: 0.5rem; align-items: center; flex-wrap: wrap;">
+                                <span class="priority-tag">🔥 PRIORITAS KLAIM</span>
+                                <span class="status-badge status-diamankan">Diamankan / Belum Diambil</span>
+                            </div>
+                        </div>
+                        <figure>
+                            <img src="https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=700&auto=format&fit=crop&q=80" alt="Foto Kacamata Titanium" onerror="this.src='assets/images/default-item.svg'">
+                            <figcaption>Kacamata frame kotak hitam titanium dalam kotak kacamata abu-abu</figcaption>
+                        </figure>
+                        <p><strong>Lokasi Penemuan:</strong> Musholla Gedung Teknik Elektro</p>
+                        <p><strong>Deskripsi &amp; Ciri:</strong> Frame titanium hitam doff, lensa minus sekitar -2.50.</p>
+                        <div class="priority-custody-box">
+                            <span>📍 <strong>Posisi Fisik Barang:</strong> Disimpan &amp; diamankan di <strong>Pos Satpam Gedung Elektro</strong>. Silakan verifikasi fisik barang.</span>
+                        </div>
+                        <div class="priority-card-actions">
+                            <a href="dashboard.html#sop-modal" class="btn-claim-priority btn-verify-satpam rbac-satpam-only">👮 Verifikasi &amp; Klaim di Pos Satpam &raquo;</a>
+                            <a href="dashboard.html">Lihat di Riwayat Laporan</a>
+                        </div>
+                    </article>
+
+                    <!-- Item 9: Flashdisk SanDisk 64GB Merah (Dikembalikan) -->
+                    <article class="completed-card" data-category="elektronik" data-status="dikembalikan">
+                        <div class="completed-card-header">
+                            <div>
+                                <h3>
+                                    <span class="item-type-icon">💾</span> Flashdisk SanDisk 64GB Merah
+                                </h3>
+                                <p><small>ID Laporan: #LF-1009 | Pelapor: Laboran TI | 12 September 2026</small></p>
+                            </div>
+                            <span class="status-badge status-dikembalikan">Sudah Dikembalikan / Diambil</span>
+                        </div>
+                        <figure style="max-height: 180px; overflow: hidden; margin-bottom: 0.75rem;">
+                            <img src="https://images.unsplash.com/photo-1624823183493-5f2575298a03?w=600&auto=format&fit=crop&q=80" alt="Flashdisk SanDisk" style="width: 100%; height: 160px; object-fit: cover; border-radius: 8px;" onerror="this.src='assets/images/default-item.svg'">
+                        </figure>
+                        <p><strong>Lokasi Awal:</strong> Lab Multimedia Komputer</p>
+                        <p><strong>Status Serah Terima:</strong> Telah diserahkan kembali kepada mahasiswa pemilik setelah pencocokan nama file tugas akhir pada 13 September 2026.</p>
+                    </article>
+
+                    <!-- Item 10: Tas Ransel Eiger Hitam Abu (Diamankan) -->
+                    <article class="priority-card" data-category="pribadi" data-status="diamankan">
+                        <div class="priority-card-header">
+                            <div>
+                                <h3>
+                                    <span class="item-type-icon">🎒</span> Tas Ransel Eiger Hitam Abu
+                                </h3>
+                                <p><small>ID Laporan: #LF-1010 | Pelapor: Satpam Pos Barat | 21 September 2026</small></p>
+                            </div>
+                            <div style="display: flex; gap: 0.5rem; align-items: center; flex-wrap: wrap;">
+                                <span class="priority-tag">🔥 PRIORITAS KLAIM</span>
+                                <span class="status-badge status-diamankan">Diamankan / Belum Diambil</span>
+                            </div>
+                        </div>
+                        <figure>
+                            <img src="https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=700&auto=format&fit=crop&q=80" alt="Foto Tas Ransel Eiger" onerror="this.src='assets/images/default-item.svg'">
+                            <figcaption>Tas ransel backpack Eiger 25L hitam aksen abu-abu dengan jas hujan tas</figcaption>
+                        </figure>
+                        <p><strong>Lokasi Penemuan:</strong> Gazebo Utama Depan Rektorat</p>
+                        <p><strong>Deskripsi &amp; Ciri:</strong> Berisi buku catatan kuliah informatika dan kotak pensil.</p>
+                        <div class="priority-custody-box">
+                            <span>📍 <strong>Posisi Fisik Barang:</strong> Disimpan &amp; diamankan di <strong>Pos Satpam Gedung Utama</strong>. Bawa identitas diri untuk verifikasi isi tas.</span>
+                        </div>
+                        <div class="priority-card-actions">
+                            <a href="dashboard.html#sop-modal" class="btn-claim-priority btn-verify-satpam rbac-satpam-only">👮 Verifikasi &amp; Klaim di Pos Satpam &raquo;</a>
+                            <a href="dashboard.html">Lihat di Riwayat Laporan</a>
+                        </div>
+                    </article>
+                </section>
+
+                <!-- Sidebar Informasi Tambahan -->
+                <aside>
+                    <h3>Fakta &amp; Alur Pengambilan</h3>
+                    <p>Jika Anda merasa memiliki barang yang ada di portal ini, silakan datang ke Pos Satpam Pusat dengan membawa KTM/Kartu Identitas asli untuk verifikasi kepemilikan.</p>
+                </aside>
+            </main>
+
+            <!-- Footer Semantik -->
+            <footer>
+                <p>&copy; 2026 PNC Lost &amp; Found Campus. Dibuat untuk Tugas Proyek Pemrograman Web.</p>
+            </footer>
+        </div>
+    </div>
+
+    <!-- Script RBAC Session, Interactive Catalog Filter, & Live Search -->
+    <script>
+        let currentCatalogFilter = 'all';
+
+        function initUserSession() {
+            // Read role and user info from localStorage
+            const role = localStorage.getItem('pnc_user_role') || 'role-mahasiswa';
+            const username = localStorage.getItem('pnc_username') || 'Tamu';
+            const roleLabel = localStorage.getItem('pnc_role_label') || (role === 'role-admin' ? 'Admin' : (role === 'role-satpam' ? 'Satpam' : 'Mahasiswa'));
+
+            // Apply role class to body to enforce RBAC
+            document.body.className = role;
+
+            // Update user badge in topbar
+            const roleEl = document.getElementById('current-user-role');
+            const nameEl = document.getElementById('current-user-name');
+            if (roleEl) roleEl.textContent = roleLabel;
+            if (nameEl) nameEl.textContent = username;
+        }
+
+        function filterByCatalog(category, cardElement) {
+            const allCards = document.querySelectorAll('.category-card');
+            
+            // If already active, toggle off to 'all'
+            if (cardElement && cardElement.classList.contains('active')) {
+                cardElement.classList.remove('active');
+                currentCatalogFilter = 'all';
+            } else {
+                allCards.forEach(c => c.classList.remove('active'));
+                if (cardElement) {
+                    cardElement.classList.add('active');
+                    currentCatalogFilter = category;
+                } else {
+                    currentCatalogFilter = 'all';
+                }
+            }
+
+            applyHomeSearch();
+
+            // Smoothly scroll down to feed if a category was selected
+            if (cardElement) {
+                const feedEl = document.getElementById('priority-feed-section');
+                if (feedEl) feedEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }
+
+        function applyHomeSearch() {
+            const query = (document.getElementById('search-input')?.value || '').toLowerCase().trim();
+            const items = document.querySelectorAll('.priority-feed-section article');
+
+            items.forEach(item => {
+                const text = item.textContent.toLowerCase();
+                const cat = item.getAttribute('data-category') || '';
+
+                const matchQuery = !query || text.includes(query);
+                const matchCategory = (currentCatalogFilter === 'all') || (cat === currentCatalogFilter);
+
+                if (matchQuery && matchCategory) {
+                    item.style.display = '';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', initUserSession);
+    </script>
+</body>
+</html>
